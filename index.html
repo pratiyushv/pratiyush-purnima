@@ -137,7 +137,7 @@ let audioCtx, master, musicOn=false, timerId;
 
 // Optional real music: place music.mp3 beside index.html.
 // If it isn't present, a soft synthesized ambient loop is used after the user taps Open.
-const audio = new Audio('music.mp3'); audio.loop=true; audio.volume=.28;
+const audio = new Audio('music.mp3.aac'); audio.loop=true; audio.volume=.28;
 audio.addEventListener('error',()=>{});
 
 function startAmbient(){
