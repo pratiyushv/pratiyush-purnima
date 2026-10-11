@@ -125,7 +125,7 @@ footer{text-align:center;padding:70px 20px;background:#fff6ee}.footer-names{font
 </div></section>
 
 <section class="events" id="events"><div class="container">
-<div class="reveal" style="text-align:center"><div class="eyebrow">JOIN US</div><h2>Wedding Celebrations</h2><div class="divider"></div><p style="font-size:20px">Five beautiful occasions. One unforgettable celebration.</p></div>
+<div class="reveal" style="text-align:center"><div class="eyebrow">JOIN US</div><h2>Wedding Celebrations</h2><div class="divider"></div><p style="font-size:20px">Three beautiful occasions. One unforgettable celebration.</p></div>
 <div class="event-grid" style="margin-top:35px">
 <div class="event reveal"><div class="icon">🌼</div><h3>Haldi</h3><div class="when">24 NOVEMBER 2026</div><p>Let the yellow festivities begin!</p><b>11:00 AM</b></div>
 <div class="event reveal"><div class="icon">💃</div><h3>Sangeet</h3><div class="when">24 NOVEMBER 2026</div><p>An evening of music, dance and joy.</p><b>5:00 PM</b></div>
@@ -136,7 +136,7 @@ footer{text-align:center;padding:70px 20px;background:#fff6ee}.footer-names{font
 <div class="eyebrow" style="text-align:center">THE CELEBRATION</div><h2 style="text-align:center">Wedding Venue</h2><div class="divider"></div>
 <div class="venue-card">
 <div class="venue-img">❦<br><small style="font:13px Montserrat">AYODHYA LAWN</small></div>
-<div class="venue-info"><div class="eyebrow">25 NOVEMBER 2026</div><h3>Ayodhya Lawn</h3><p>Join us at PS Lawn for the wedding celebration of Pratiyush &amp; Purnima.</p><a
+<div class="venue-info"><div class="eyebrow">25 NOVEMBER 2026</div><h3>Ayodhya Lawn</h3><p>Join us at Ayodhya Lawn for the wedding celebration of Pratiyush &amp; Purnima.</p><a
   class="btn"
   href="https://maps.app.goo.gl/bKVDcZ3Xt3Pg8ivV8?g_st=aw"
   target="_blank"
@@ -155,7 +155,44 @@ footer{text-align:center;padding:70px 20px;background:#fff6ee}.footer-names{font
 
 <section class="rsvp" id="rsvp"><div class="container reveal">
 <div class="eyebrow" style="color:#efc77d">YOUR PRESENCE MATTERS</div><h2>RSVP</h2><p style="font-size:20px">Please let us know if you will be joining our celebration.</p>
-<form class="form" onsubmit="event.preventDefault();alert('Thank you! RSVP demo submitted. We will connect this to WhatsApp/email/database in the final version.')">
+<form class="form" id="rsvpForm">
+  <input
+    type="text"
+    name="name"
+    placeholder="Your Name"
+    required
+    maxlength="100"
+  >
+
+  <select name="attendance" required>
+    <option value="">Will you attend?</option>
+    <option value="Yes, with pleasure">Yes, with pleasure</option>
+    <option value="Sorry, can't make it">Sorry, can't make it</option>
+  </select>
+
+  <input
+    type="number"
+    name="guests"
+    min="1"
+    max="100"
+    value="1"
+    placeholder="Number of Guests"
+    required
+  >
+
+  <textarea
+    name="message"
+    placeholder="Message (optional)"
+    maxlength="1000"
+  ></textarea>
+
+  <button class="btn" type="submit">
+    SEND RESPONSE ✈
+  </button>
+
+  <p id="rsvpStatus" role="status"
+     style="grid-column:1/-1;text-align:center"></p>
+</form>
 <input required placeholder="Your Name"><select required><option value="">Will you attend?</option><option>Yes, with pleasure</option><option>Sorry, can't make it</option></select><input type="number" min="1" placeholder="Number of Guests"><textarea placeholder="Message (optional)"></textarea><button class="btn" type="submit">SEND RESPONSE ✈</button>
 </form></div></section>
 
@@ -219,6 +256,42 @@ function countdown(){
 } countdown(); setInterval(countdown,1000);
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')}),{threshold:.12});
 document.querySelectorAll('.reveal').forEach(x=>io.observe(x));
+ const RSVP_WEB_APP_URL =
+  'https://script.google.com/macros/s/AKfycbzW86wrRUXFiKAV1jLqVvOzOOhYQGelWfEHvjs-b1DL9DReVYhUjptjKAym0frRfdgg/exec';
+
+const rsvpForm = document.getElementById('rsvpForm');
+
+if (rsvpForm) {
+  rsvpForm.addEventListener('submit', async function (event) {
+    event.preventDefault();
+
+    const button = rsvpForm.querySelector('button[type="submit"]');
+    const status = document.getElementById('rsvpStatus');
+
+    button.disabled = true;
+    button.textContent = 'SENDING...';
+    status.textContent = '';
+
+    try {
+      await fetch(RSVP_WEB_APP_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: new URLSearchParams(new FormData(rsvpForm))
+      });
+
+      status.textContent =
+        'Thank you! Your RSVP has been sent.';
+      rsvpForm.reset();
+
+    } catch (error) {
+      status.textContent =
+        'Unable to send RSVP. Please try again.';
+    } finally {
+      button.disabled = false;
+      button.textContent = 'SEND RESPONSE ✈';
+    }
+  });
+}
 </script>
 </body>
 </html>
