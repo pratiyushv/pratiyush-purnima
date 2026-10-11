@@ -160,9 +160,18 @@ async function startMusic(){
   try{ await audio.play(); musicOn=true; document.getElementById('musicBtn').classList.add('on'); }
   catch(e){ startAmbient(); }
 }
-document.getElementById('openBtn').onclick=()=>{
+document.getElementById('openBtn').onclick = () => {
+  // Start music immediately on the user's click
+  startMusic();
+
+  // Continue the envelope-opening animation
   env.classList.add('open');
-  setTimeout(()=>{intro.classList.add('hidden');document.body.classList.remove('lock');document.documentElement.classList.add('ready');startMusic()},850);
+
+  setTimeout(() => {
+    intro.classList.add('hidden');
+    document.body.classList.remove('lock');
+    document.documentElement.classList.add('ready');
+  }, 850);
 };
 document.getElementById('musicBtn').onclick=()=>{
   if(!musicOn){startMusic();return}
