@@ -44,7 +44,30 @@ nav{position:fixed;z-index:20;top:0;left:0;right:0;padding:15px 20px;display:fle
 .hero-content{position:relative;text-align:center;z-index:2}.hero h1{font-family:'Great Vibes';font-size:clamp(72px,18vw,145px);font-weight:400;line-height:.7;margin:12px 0 22px;color:#f4d18c;text-shadow:0 4px 30px #0008}.hero .date{font:500 13px Montserrat;letter-spacing:5px}.hero .sub{font-size:22px}.scroll{margin-top:35px;font:9px Montserrat;letter-spacing:3px}.scroll span{display:block;width:1px;height:45px;background:#fff8;margin:8px auto 0;animation:down 1.3s infinite}@keyframes down{50%{transform:translateY(12px);opacity:.2}}
 /* decorative */
 .flower{position:absolute;font-size:70px;opacity:.12;pointer-events:none}.f1{left:-15px;top:20px}.f2{right:-15px;bottom:20px}
-.story{background:linear-gradient(135deg,#fff8f0,#f8e7e2)}.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}.photo{border:10px solid white;box-shadow:0 20px 45px #5d223522;transform:rotate(-2deg)}.photo img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}.story-text{font-size:22px;line-height:1.5}
+.story{background:linear-gradient(135deg,#fff8f0,#f8e7e2)}.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}.photo {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 10px solid white;
+  border-radius: 4px;
+  box-shadow: 0 20px 45px #5d223522;
+  transform: rotate(-2deg);
+  background: #e5eaf5;
+}.photo::before {
+  content: "";
+  position: absolute;
+  inset: -12px;
+  z-index: -1;
+  background: url("images/couple5.jpg") center / cover no-repeat;
+  filter: blur(12px) brightness(.75);
+}.photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
+  position: relative;
+}.story-text{font-size:22px;line-height:1.5}
 .events{background:#fff}.event-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.event{padding:24px 12px;border:1px solid #e5cba7;border-radius:18px;background:linear-gradient(180deg,#fffdf9,#fff1ec);text-align:center;min-height:240px;display:flex;flex-direction:column;justify-content:center;transition:.35s}.event:hover{transform:translateY(-8px);box-shadow:0 15px 30px #7b304019}.event .icon{font-size:35px}.event h3{color:var(--wine);font-size:26px;margin:10px 0 3px}.event .when{font:600 10px Montserrat;letter-spacing:1px;color:var(--rose)}.event p{font-size:17px;margin:10px 0}
 .countdown{background:var(--wine);color:white;text-align:center}.countdown h2{color:#f6d89b}.timer{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}.unit{width:100px;padding:18px 10px;border:1px solid #d6ae6755;border-radius:15px;background:#ffffff0b}.unit b{font-size:38px;color:#f6d89b;display:block}.unit span{font:9px Montserrat;letter-spacing:2px}
 .venue{background:#f9eee7}.venue-card{display:grid;grid-template-columns:1.2fr 1fr;overflow:hidden;border-radius:25px;background:white;box-shadow:0 20px 45px #4e182318}.venue-img{min-height:330px;background:linear-gradient(135deg,#d9a86d,#7d2639);display:grid;place-items:center;color:white;font-size:80px}.venue-info{padding:45px}.venue-info h3{font-size:38px;color:var(--wine);margin-bottom:5px}.venue-info p{font-size:20px;line-height:1.4}
